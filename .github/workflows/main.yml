@@ -20,8 +20,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.405
-      env:
-          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
 
     - name: Restore
       run: dotnet restore ./src/SqlBuilder/SqlBuilder.csproj
