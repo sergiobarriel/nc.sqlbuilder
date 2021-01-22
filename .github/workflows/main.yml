@@ -1,0 +1,36 @@
+name: Build & publish Nuget package
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build-and-publish:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101    
+        source-url: https://api.nuget.org/v3/index.json
+      env:
+          NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+
+    - name: Restore
+      run: dotnet restore ./src/SqlBuilder/SqlBuilder.csproj
+    
+    - name: Build
+      run: dotnet build ./src/SqlBuilder/SqlBuilder.csproj --configuration Release --no-restore
+    
+    - name: Pack
+      run: dotnet pack ./src/SqlBuilder/SqlBuilder.csproj --configuration Release
+      
+    - name: Publish
+      run: dotnet nuget push "./src/SqlBuilder/SqlBuilder/bin/Release/*.nupkg" --api-key ${{ secrets.NUGET_TOKEN }}
