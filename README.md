@@ -43,3 +43,6 @@ using (var connection = new SqlConnection(connectionString))
     var users = await connection.QueryAsync<User>(builder.Query, builder.Parameters);
 }
 ```
+
+## Contact
+You can contact me via Twitter [@sergiobarriel](https://twitter.com/sergiobarriel)
