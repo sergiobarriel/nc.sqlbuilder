@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SqlBuilder\NC.SqlBuilder.csproj" />
+    <ProjectReference Include="..\NC.SqlBuilder\NC.SqlBuilder.csproj" />
   </ItemGroup>
 
 </Project>
