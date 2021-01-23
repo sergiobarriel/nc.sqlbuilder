@@ -10,7 +10,7 @@
             Size = size;
         }
 
-        public int First { get; set; }
-        public int Size { get; set; }
+        public int First { get;}
+        public int Size { get; }
     }
 }

@@ -4,7 +4,6 @@ namespace NC.SqlBuilder.Models
 {
     public class Sql
     {
-
         public string Query { get; set; }
         public SqlSegment Segment { get; set; }
 

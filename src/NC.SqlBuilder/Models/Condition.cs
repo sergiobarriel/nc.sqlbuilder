@@ -10,8 +10,8 @@
             Value = value;
         }
 
-        public string Field { get; set; }
-        public string Value { get; set; }
-        public Operator Operator { get; set; }
+        public string Field { get; }
+        public string Value { get; }
+        public Operator Operator { get; }
     }
 }
