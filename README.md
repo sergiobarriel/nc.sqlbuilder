@@ -1,3 +1,5 @@
 # SqlBuilder
 
-![Build & publish Nuget package](https://github.com/sergiobarriel/sqlbuilder/workflows/Build%20&%20publish%20Nuget%20package/badge.svg)
+![build & test](https://github.com/sergiobarriel/sqlbuilder/workflows/build%20&%20test%20package/badge.svg)
+
+![publish](https://github.com/sergiobarriel/sqlbuilder/workflows/publish%20package/badge.svg)
