@@ -22,15 +22,15 @@ jobs:
         dotnet-version: '3.1.x'
       
     - name: Restore dependencies
-      run: dotnet restore ./src/SqlBuilder/SqlBuilder.csproj
+      run: dotnet restore ./src/NC.SqlBuilder/NC.SqlBuilder.csproj
       
     - name: Build
-      run: dotnet build ./src/SqlBuilder/SqlBuilder.csproj --configuration Release --no-restore
+      run: dotnet build ./src/NC.SqlBuilder/NC.SqlBuilder.csproj --configuration Release --no-restore
       
     - name: Publish on nuget.org
       uses: brandedoutcast/publish-nuget@v2
       with:
-        PROJECT_FILE_PATH: ./src/SqlBuilder/SqlBuilder.csproj
+        PROJECT_FILE_PATH: ./src/NC.SqlBuilder/NC.SqlBuilder.csproj
         VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
         TAG_FORMAT: '*'
         NUGET_KEY: ${{ secrets.NUGET_TOKEN }}

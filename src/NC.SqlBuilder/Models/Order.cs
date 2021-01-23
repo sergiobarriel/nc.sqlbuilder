@@ -1,4 +1,4 @@
-﻿namespace SqlBuilder.Models
+﻿namespace NC.SqlBuilder.Models
 {
     public class Order
     {

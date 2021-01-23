@@ -1,8 +1,8 @@
-﻿using SqlBuilder.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using NC.SqlBuilder.Models;
 using Xunit;
 
-namespace SqlBuilder.Tests
+namespace NC.SqlBuilder.Tests
 {
     public class SqlBuilderShould
     { 

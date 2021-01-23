@@ -6,10 +6,11 @@
     <Company />
     <PackageProjectUrl>https://github.com/sergiobarriel/sqlbuilder</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sergiobarriel/sqlbuilder</RepositoryUrl>
-    <PackageTags>sql, builder</PackageTags>
-    <Version>1.0.2</Version>
+    <PackageTags>sql, builder, lightweight</PackageTags>
+    <Version>1.0.3</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>NC.SqlBuilder</PackageId>
+    <Description>NC.SqlBuilder is a lightweight SQL builder</Description>
   </PropertyGroup>
 
 </Project>

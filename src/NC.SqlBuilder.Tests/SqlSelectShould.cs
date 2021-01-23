@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace SqlBuilder.Tests
+namespace NC.SqlBuilder.Tests
 {
     public class SqlSelectShould
     {

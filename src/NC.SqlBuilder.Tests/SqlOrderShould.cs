@@ -1,8 +1,8 @@
 ﻿using System;
-using SqlBuilder.Models;
+using NC.SqlBuilder.Models;
 using Xunit;
 
-namespace SqlBuilder.Tests
+namespace NC.SqlBuilder.Tests
 {
     public class SqlOrderShould
     {

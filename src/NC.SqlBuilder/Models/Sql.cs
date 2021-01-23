@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SqlBuilder.Models
+namespace NC.SqlBuilder.Models
 {
     public class Sql
     {

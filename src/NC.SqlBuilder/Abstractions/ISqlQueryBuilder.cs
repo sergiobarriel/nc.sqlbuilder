@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SqlBuilder.Models;
+using NC.SqlBuilder.Models;
 
-namespace SqlBuilder.Abstractions
+namespace NC.SqlBuilder.Abstractions
 {
     public interface ISqlQueryBuilder
     {

@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace SqlBuilder.Tests
+namespace NC.SqlBuilder.Tests
 {
     public class SqlPaginationShould
     {

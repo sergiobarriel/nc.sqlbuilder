@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SqlBuilder.Models;
+using NC.SqlBuilder.Models;
 
-namespace SqlBuilder.Tests
+namespace NC.SqlBuilder.Tests
 {
     public static class Default
     {

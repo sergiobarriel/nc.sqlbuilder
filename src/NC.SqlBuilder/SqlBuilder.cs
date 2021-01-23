@@ -1,11 +1,11 @@
-﻿using SqlBuilder.Abstractions;
-using SqlBuilder.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using NC.SqlBuilder.Abstractions;
+using NC.SqlBuilder.Models;
 
-namespace SqlBuilder
+namespace NC.SqlBuilder
 {
     public partial class SqlBuilder : ISqlQueryBuilder, ISqlQueryBuilderWithTable, ISqlQueryBuilderWithSelect, ISqlQueryBuilderWithWhere, ISqlQueryBuilderWithOrder, ISqlQueryBuilderWithPagination
     {

@@ -21,10 +21,10 @@ jobs:
         dotnet-version: '3.1.x'
         
     - name: Restore dependencies
-      run: dotnet restore ./src/SqlBuilder/SqlBuilder.csproj
+      run: dotnet restore ./src/NC.SqlBuilder/NC.SqlBuilder.csproj
       
     - name: Build
-      run: dotnet build ./src/SqlBuilder/SqlBuilder.csproj --configuration Release --no-restore
+      run: dotnet build ./src/NC.SqlBuilder/NC.SqlBuilder.csproj --configuration Release --no-restore
       
     - name: Run tests
-      run: dotnet test ./src/SqlBuilder.Tests/SqlBuilder.Tests.csproj --verbosity normal
+      run: dotnet test ./src/NC.SqlBuilder.Tests/NC.SqlBuilder.Tests.csproj --verbosity normal
