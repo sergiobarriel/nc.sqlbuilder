@@ -1,0 +1,36 @@
+name: publish package
+
+on:
+  workflow_run:
+      workflows: ["build & test package"]
+      branches: [ master ]
+      types:
+        - completed
+
+jobs:
+
+  publish:
+
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+      
+    - name: Restore dependencies
+      run: dotnet restore ./src/SqlBuilder/SqlBuilder.csproj
+      
+    - name: Build
+      run: dotnet build ./src/SqlBuilder/SqlBuilder.csproj --configuration Release --no-restore
+      
+    - name: Publish on nuget.org
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: ./src/SqlBuilder/SqlBuilder.csproj
+        VERSION_REGEX: '^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_KEY: ${{ secrets.NUGET_TOKEN }}
