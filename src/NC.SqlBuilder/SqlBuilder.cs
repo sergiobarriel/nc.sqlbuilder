@@ -7,7 +7,13 @@ using NC.SqlBuilder.Models;
 
 namespace NC.SqlBuilder
 {
-    public partial class SqlBuilder : ISqlQueryBuilder, ISqlQueryBuilderWithTable, ISqlQueryBuilderWithSelect, ISqlQueryBuilderWithWhere, ISqlQueryBuilderWithOrder, ISqlQueryBuilderWithPagination
+    public partial class SqlBuilder : 
+        ISqlQueryBuilder, 
+        ISqlQueryBuilderWithTable, 
+        ISqlQueryBuilderWithSelect, 
+        ISqlQueryBuilderWithWhere, 
+        ISqlQueryBuilderWithOrder, 
+        ISqlQueryBuilderWithPagination
     {
         public ISqlQueryBuilderWithTable ToTable(Table table)
         {
