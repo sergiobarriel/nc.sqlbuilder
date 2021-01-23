@@ -25,7 +25,7 @@ jobs:
     - name: Setup NuGet.exe for use with actions
       uses: NuGet/setup-nuget@v1.0.5
       with:
-        nuget-api-key: secrets.NUGET_TOKEN
+        nuget-api-key: ${{ secrets.NUGET_TOKEN }}
 
     - name: Restore
       run: dotnet restore ./src/SqlBuilder/SqlBuilder.csproj
