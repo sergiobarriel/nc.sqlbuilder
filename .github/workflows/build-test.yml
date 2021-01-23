@@ -1,0 +1,30 @@
+name: build & test package
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+   
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '3.1.x'
+        
+    - name: Restore dependencies
+      run: dotnet restore ./src/SqlBuilder/SqlBuilder.csproj
+      
+    - name: Build
+      run: dotnet build ./src/SqlBuilder/SqlBuilder.csproj --configuration Release --no-restore
+      
+    - name: Run tests
+      run: dotnet test ./src/SqlBuilder.Tests/SqlBuilder.Tests.csproj --verbosity normal
