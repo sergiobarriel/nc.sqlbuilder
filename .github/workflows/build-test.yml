@@ -1,4 +1,4 @@
-name: Build & Test package
+name: build & test package
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
       with:
         dotnet-version: '3.1.x'
         
-    - name: Install dependencies
+    - name: Restore dependencies
       run: dotnet restore
       
     - name: Build package
