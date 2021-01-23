@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Authors>Sergio Barriel</Authors>
     <Company />
+    <PackageProjectUrl>https://github.com/sergiobarriel/sqlbuilder</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sergiobarriel/sqlbuilder</RepositoryUrl>
+    <PackageTags>sql, builder</PackageTags>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
 </Project>
