@@ -3,7 +3,7 @@ name: publish package
 on:
   workflow_run:
       workflows: ["build & test package"]
-      branches: [ master ]
+      branches: [ main ]
       types:
         - completed
 
