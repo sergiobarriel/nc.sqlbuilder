@@ -40,6 +40,6 @@ Then, you can query your database by using ```SqlConnection``` (for example, thr
 ```csharp
 using (var connection = new SqlConnection(connectionString))
 {
-    return await connection.QueryAsync<User>(builder.Query, builder.Parameters);
+    var users = await connection.QueryAsync<User>(builder.Query, builder.Parameters);
 }
 ```
