@@ -7,7 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+   
+  build-and-test:
     runs-on: ubuntu-latest
     
     steps:
@@ -22,14 +23,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./src/SqlBuilder/SqlBuilder.csproj
       
-    - name: Restore dependencies (test project)
-      run: dotnet restore ./src/SqlBuilder/SqlBuilder.csproj
-      
     - name: Build
       run: dotnet build ./src/SqlBuilder/SqlBuilder.csproj --configuration Release --no-restore
-      
-    - name: Build (test project)
-      run: dotnet build ./src/SqlBuilder.Tests/SqlBuilder.Tests.csproj --configuration Release --no-restore
       
     - name: Run tests
       run: dotnet test ./src/SqlBuilder/SqlBuilder.Test.csproj --verbosity normal
