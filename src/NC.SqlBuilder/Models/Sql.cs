@@ -8,6 +8,6 @@ namespace NC.SqlBuilder.Models
         public string Query { get; set; }
         public SqlSegment Segment { get; set; }
 
-        public IDictionary<string, object> Parameters { get; set; }
+        public Dictionary<string, object> Parameters { get; set; }
     }
 }

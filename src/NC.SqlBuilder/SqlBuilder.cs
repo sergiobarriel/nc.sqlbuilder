@@ -89,7 +89,7 @@ namespace NC.SqlBuilder
         private IEnumerable<string> Fields { get; set; }
         private bool AllFields { get; set; }
         private IEnumerable<Condition> Conditions { get; set; }
-        private IDictionary<string, object> Parameters { get; set; }
+        private Dictionary<string, object> Parameters { get; set; }
         private IList<Order> Orders { get; set; }
         private Pagination Pagination { get; set; }
         private List<string> BlackList { get; set; }
@@ -120,14 +120,7 @@ namespace NC.SqlBuilder
 
             var sql = new Sql()
             {
-                Segment = new SqlSegment()
-                {
-                    Select = select,
-                    From = from,
-                    Where = where,
-                    Order = order,
-                    Pagination = pagination
-                },
+                Segment = new SqlSegment(select, from, where, order, pagination),
                 Query = Clean($"{select} {from} {where} {order} {pagination}"),
                 Parameters = Parameters
             };
@@ -244,13 +237,13 @@ namespace NC.SqlBuilder
 
         private string Clean(string sql)
         {
-            string RemoveBlanks(string sql)
+            static string RemoveBlanks(string sql)
             {
                 var regex = new Regex("[ ]{2,}", RegexOptions.None);
                 return regex.Replace(sql, " ");
             }
 
-            string Trim(string sql) => sql.Trim();
+            static string Trim(string sql) => sql.Trim();
 
             sql = RemoveBlanks(sql);
             sql = Trim(sql);

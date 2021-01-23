@@ -2,10 +2,19 @@
 {
     public class SqlSegment
     {
-        public string Select { get; set; }
-        public string From { get; set; }
-        public string Where { get; set; }
-        public string Order { get; set; }
-        public string Pagination { get; set; }
+        public SqlSegment(string select, string from, string where, string order, string pagination)
+        {
+            Select = select;
+            From = from;
+            Where = where;
+            Order = order;
+            Pagination = pagination;
+        }
+
+        public string Select { get; }
+        public string From { get; }
+        public string Where { get; }
+        public string Order { get; }
+        public string Pagination { get; }
     }
 }
