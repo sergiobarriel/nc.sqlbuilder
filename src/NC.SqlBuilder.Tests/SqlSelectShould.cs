@@ -8,7 +8,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_without_fields_throws_exception()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(null)
                 .AddConditions(null)
@@ -21,7 +21,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_with_many_fields_returns_query()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(Default.DefaultFields)
                 .AddConditions(null)
@@ -39,7 +39,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_with_all_fields_returns_query()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddAllFields()
                 .AddConditions(null)

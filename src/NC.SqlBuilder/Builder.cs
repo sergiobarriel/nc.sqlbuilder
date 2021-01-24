@@ -7,7 +7,7 @@ using NC.SqlBuilder.Models;
 
 namespace NC.SqlBuilder
 {
-    public partial class SqlBuilder : 
+    public class Builder : 
         ISqlQueryBuilder, 
         ISqlQueryBuilderWithTable, 
         ISqlQueryBuilderWithSelect, 
@@ -15,6 +15,19 @@ namespace NC.SqlBuilder
         ISqlQueryBuilderWithOrder, 
         ISqlQueryBuilderWithPagination
     {
+        private IList<Table> Tables { get; set; }
+        private IEnumerable<string> Fields { get; set; }
+        private bool AllFields { get; set; }
+        private IEnumerable<Condition> Conditions { get; set; }
+        private Dictionary<string, object> Parameters { get; set; }
+        private IList<Order> Orders { get; set; }
+        private Pagination Pagination { get; set; }
+        private List<string> BlackList { get; set; }
+
+        #region Fluent flow
+
+        public static ISqlQueryBuilder Create() => new Builder();
+
         public ISqlQueryBuilderWithTable ToTable(Table table)
         {
             if (table != null)
@@ -67,7 +80,6 @@ namespace NC.SqlBuilder
 
             return this;
         }
-
         public ISqlQueryBuilderWithOrder AddOrders(IEnumerable<Order> orders)
         {
             if (orders != null && orders.Any())
@@ -77,7 +89,6 @@ namespace NC.SqlBuilder
 
             return this;
         }
-
         public ISqlQueryBuilderWithPagination AddPagination(Pagination pagination)
         {
             if (pagination != null)
@@ -87,34 +98,6 @@ namespace NC.SqlBuilder
 
             return this;
         }
-    }
-
-    public partial class SqlBuilder
-    {
-        private IList<Table> Tables { get; set; }
-        private IEnumerable<string> Fields { get; set; }
-        private bool AllFields { get; set; }
-        private IEnumerable<Condition> Conditions { get; set; }
-        private Dictionary<string, object> Parameters { get; set; }
-        private IList<Order> Orders { get; set; }
-        private Pagination Pagination { get; set; }
-        private List<string> BlackList { get; set; }
-
-        private SqlBuilder()
-        {
-            Tables = new List<Table>();
-            Fields = new List<string>();
-            Conditions = new List<Condition>();
-            Orders = new List<Order>();
-            Parameters = new Dictionary<string, object>();
-            AllFields = false;
-
-            BlackList = new List<string>() { "DELETE", "TRUNCATE", "AND", "SELECT", "UPDATE", ";" };
-        }
-
-
-        public static ISqlQueryBuilder Create() => new SqlBuilder();
-
 
         public Sql Build()
         {
@@ -134,6 +117,23 @@ namespace NC.SqlBuilder
             return sql;
         }
 
+        #endregion
+
+        private Builder()
+        {
+            Tables = new List<Table>();
+            Fields = new List<string>();
+            Conditions = new List<Condition>();
+            Orders = new List<Order>();
+            Parameters = new Dictionary<string, object>();
+            AllFields = false;
+
+            BlackList = new List<string>() { "DELETE", "TRUNCATE", "AND", "SELECT", "UPDATE", ";" };
+        }
+
+
+        #region SELECT segment
+
         private string BuildSelect()
         {
             if ((Fields == null || !Fields.Any()) && !AllFields) throw new Exception("Fields can not be null or empty.");
@@ -142,6 +142,10 @@ namespace NC.SqlBuilder
                 ? "SELECT *"
                 : $"SELECT {string.Join(", ", Fields.Select(field => $"[{field}]"))}";
         }
+
+        #endregion
+
+        #region FROM segment
 
         private string BuildFrom()
         {
@@ -157,6 +161,10 @@ namespace NC.SqlBuilder
                 throw new NotImplementedException();
             }
         }
+
+        #endregion
+
+        #region WHERE segment
 
         private string BuildWhere()
         {
@@ -221,6 +229,9 @@ namespace NC.SqlBuilder
                 : $"WHERE {string.Join(" AND ", @where)}";
         }
 
+        #endregion
+
+        #region ORDER segment
 
         private string BuildOrder()
         {
@@ -241,6 +252,9 @@ namespace NC.SqlBuilder
                 if (!Fields.Contains(order.Field)) throw new Exception($"Field {order.Field} not included on select.");
             }
         }
+        #endregion
+
+        #region PAGINATION segment
 
         private string BuildPagination()
         {
@@ -261,6 +275,8 @@ namespace NC.SqlBuilder
                     throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
             }
         }
+
+        #endregion
 
         private string Clean(string sql)
         {

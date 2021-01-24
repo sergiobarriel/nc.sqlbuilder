@@ -7,7 +7,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_with_pagination()
         {
-            var sql = SqlBuilder.Create()
+            var sql = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(Default.DefaultFields)
                 .AddConditions(null)

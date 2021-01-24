@@ -9,7 +9,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_with_ascending_order()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(Default.DefaultFields)
                 .AddConditions(null)
@@ -27,7 +27,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_with_descending_order()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(Default.DefaultFields)
                 .AddConditions(null)
@@ -45,7 +45,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_with_unknown_field()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(Default.DefaultFields)
                 .AddConditions(null)

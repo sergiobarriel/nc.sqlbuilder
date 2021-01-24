@@ -9,7 +9,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_with_conditions()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(Default.DefaultFields)
                 .AddConditions(new List<Condition>()
@@ -37,7 +37,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_without_conditions()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(Default.DefaultFields)
                 .AddConditions(null)
@@ -55,7 +55,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void query_with_all_operators()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(Default.DefaultFields)
                 .AddConditions(new List<Condition>()

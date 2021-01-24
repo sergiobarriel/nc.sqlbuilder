@@ -9,7 +9,7 @@ namespace NC.SqlBuilder.Tests
         [Fact]
         public void complete_query()
         {
-            var builder = SqlBuilder.Create()
+            var builder = Builder.Create()
                 .ToTable(Default.DefaultTable)
                 .AddFields(Default.DefaultFields)
                 .AddConditions(new List<Condition>() { new Condition("One", Operator.Equals, "one") })
