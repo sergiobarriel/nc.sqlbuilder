@@ -17,7 +17,7 @@ You can lean on ```Table```, ```Condition```, ```Order``` and ```Pagination``` t
 With ```SqlBuilder``` type you can start the fluent builder and populate with previous types.
 
 ```csharp
-var builder = SqlBuilder.Create()
+var builder = Builder.Create()
     .ToTable(new Table("Users", "dbo"))
     .AddFields(new List<string>() { "Id", "Name", "Email", "Age"})
     .AddConditions(new List<Condition>() { new Condition("Age", Operator.GreaterThan, "7") })
