@@ -7,6 +7,9 @@ namespace NC.SqlBuilder.Models
         [Description("Equals")]
         Equals = 0,
 
+        [Description("Like")]
+        Like,
+
         [Description("Less than")]
         LessThan,
 

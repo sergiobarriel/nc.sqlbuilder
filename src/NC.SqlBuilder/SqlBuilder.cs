@@ -109,7 +109,7 @@ namespace NC.SqlBuilder
             Parameters = new Dictionary<string, object>();
             AllFields = false;
 
-            BlackList = new List<string>() { "DELETE", "TRUNCATE", "AND", "SELECT", "UPDATE" };
+            BlackList = new List<string>() { "DELETE", "TRUNCATE", "AND", "SELECT", "UPDATE", ";" };
         }
 
 
@@ -169,7 +169,49 @@ namespace NC.SqlBuilder
             {
                 foreach (var condition in Conditions)
                 {
-                    where.Add($"[{condition.Field}] {GetOperatorString(condition.Operator)} @{condition.Field}");
+                    switch (condition.Operator)
+                    {
+                        case Operator.Equals:
+
+                            where.Add($"[{condition.Field}] = @{condition.Field}");
+
+                            break;
+  
+                        case Operator.Like:
+
+                            where.Add($"[{condition.Field}] LIKE '%@{condition.Field}%'");
+
+                            break;
+                        case Operator.LessThan:
+
+                            where.Add($"[{condition.Field}] < @{condition.Field}");
+
+                            break;
+                        case Operator.LessThanOrEqual:
+
+                            where.Add($"[{condition.Field}] <= @{condition.Field}");
+
+                            break;
+                        case Operator.GreaterThan:
+
+                            where.Add($"[{condition.Field}] > @{condition.Field}");
+
+                            break;
+                        case Operator.GreaterThanOrEqual:
+
+                            where.Add($"[{condition.Field}] >= @{condition.Field}");
+
+                            break;
+                        case Operator.Between:
+
+                            throw new NotImplementedException();
+
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(condition.Operator), condition.Operator, null);
+                    }
+
                     Parameters.Add(condition.Field, condition.Value);
                 }
             }
@@ -205,27 +247,6 @@ namespace NC.SqlBuilder
             return Pagination == null
                 ? string.Empty
                 : $"OFFSET {Pagination.First} ROWS FETCH NEXT {Pagination.Size} ROWS ONLY";
-        }
-
-        private string GetOperatorString(Operator @operator)
-        {
-            switch (@operator)
-            {
-                case Operator.Equals:
-                    return "=";
-                case Operator.LessThan:
-                    return "<";
-                case Operator.LessThanOrEqual:
-                    return "<=";
-                case Operator.GreaterThan:
-                    return ">";
-                case Operator.GreaterThanOrEqual:
-                    return ">=";
-                case Operator.Between:
-                    throw new NotImplementedException();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(@operator), @operator, null);
-            }
         }
 
         private string GetDirectionString(Direction direction)
