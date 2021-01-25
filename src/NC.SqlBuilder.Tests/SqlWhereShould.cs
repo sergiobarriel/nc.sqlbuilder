@@ -10,8 +10,8 @@ namespace NC.SqlBuilder.Tests
         public void query_with_conditions()
         {
             var builder = Builder.Create()
-                .ToTable(Default.DefaultTable)
-                .AddFields(Default.DefaultFields)
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] { "One", "Two" })
                 .AddConditions(new List<Condition>()
                 {
                     new Condition("One", Operator.Equals, "value 1"),
@@ -21,7 +21,7 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two], [Three] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] = @Two";
+            var query = "SELECT [One], [Two] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] = @Two";
             var where = "WHERE [One] = @One AND [Two] = @Two";
 
             Assert.Equal(builder.Segment.Where, where);
@@ -38,14 +38,14 @@ namespace NC.SqlBuilder.Tests
         public void query_without_conditions()
         {
             var builder = Builder.Create()
-                .ToTable(Default.DefaultTable)
-                .AddFields(Default.DefaultFields)
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] { "One", "Two" })
                 .AddConditions(null)
                 .AddOrder(null)
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two], [Three] FROM [dbo].[MyTable]";
+            var query = "SELECT [One], [Two] FROM [dbo].[MyTable]";
             var where = "";
 
             Assert.Equal(builder.Segment.Where, where);
@@ -56,8 +56,8 @@ namespace NC.SqlBuilder.Tests
         public void query_with_all_operators()
         {
             var builder = Builder.Create()
-                .ToTable(Default.DefaultTable)
-                .AddFields(Default.DefaultFields)
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] {"One", "Two" })
                 .AddConditions(new List<Condition>()
                 {
                     new Condition("One", Operator.Equals, "value 1"),
@@ -71,7 +71,7 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two], [Three] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%'";
+            var query = "SELECT [One], [Two] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%'";
             var where = "WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%'";
 
             Assert.Equal(builder.Segment.Where, where);

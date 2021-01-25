@@ -1,12 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NC.SqlBuilder.Models
 {
     public class Sql
     {
-        public string Query { get; set; }
-        public SqlSegment Segment { get; set; }
+        public Sql(string query, SqlSegment segment, Dictionary<string, object> parameters)
+        {
+            if(string.IsNullOrEmpty(query)) throw new Exception("'Query' shouldn't be empty.");
 
-        public Dictionary<string, object> Parameters { get; set; }
+            Query = query;
+            Segment = segment;
+            Parameters = parameters;
+        }
+
+        public string Query { get; }
+        public SqlSegment Segment { get; }
+
+        public Dictionary<string, object> Parameters { get; }
     }
 }

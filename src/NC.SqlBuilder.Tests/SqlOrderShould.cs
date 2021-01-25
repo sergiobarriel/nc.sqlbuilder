@@ -10,14 +10,14 @@ namespace NC.SqlBuilder.Tests
         public void query_with_ascending_order()
         {
             var builder = Builder.Create()
-                .ToTable(Default.DefaultTable)
-                .AddFields(Default.DefaultFields)
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] { "One", "Two" })
                 .AddConditions(null)
                 .AddOrder(new Order("One", Direction.Ascending))
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two], [Three] FROM [dbo].[MyTable] ORDER BY [One] ASC";
+            var query = "SELECT [One], [Two] FROM [dbo].[MyTable] ORDER BY [One] ASC";
             var order = "ORDER BY [One] ASC";
 
             Assert.Equal(builder.Segment.Order, order);
@@ -28,14 +28,14 @@ namespace NC.SqlBuilder.Tests
         public void query_with_descending_order()
         {
             var builder = Builder.Create()
-                .ToTable(Default.DefaultTable)
-                .AddFields(Default.DefaultFields)
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] { "One", "Two" })
                 .AddConditions(null)
                 .AddOrder(new Order("One", Direction.Descending))
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two], [Three] FROM [dbo].[MyTable] ORDER BY [One] DESC";
+            var query = "SELECT [One], [Two] FROM [dbo].[MyTable] ORDER BY [One] DESC";
             var order = "ORDER BY [One] DESC";
 
             Assert.Equal(builder.Segment.Order, order);
@@ -43,11 +43,11 @@ namespace NC.SqlBuilder.Tests
         }
 
         [Fact]
-        public void query_with_unknown_field()
+        public void query_with_unknown_field_to_sort()
         {
             var builder = Builder.Create()
-                .ToTable(Default.DefaultTable)
-                .AddFields(Default.DefaultFields)
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] { "One", "Two" })
                 .AddConditions(null)
                 .AddOrder(new Order("Unknown", Direction.Descending))
                 .AddPagination(null);

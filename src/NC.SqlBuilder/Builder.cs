@@ -28,6 +28,8 @@ namespace NC.SqlBuilder
 
         public static ISqlQueryBuilder Create() => new Builder();
 
+        public ISqlQueryBuilderWithTable ToTable(string table) => ToTable(new Table(table));
+        
         public ISqlQueryBuilderWithTable ToTable(Table table)
         {
             if (table != null)
@@ -107,14 +109,10 @@ namespace NC.SqlBuilder
             var order = Clean($" {BuildOrder()}");
             var pagination = Clean($"{BuildPagination()}");
 
-            var sql = new Sql()
-            {
-                Segment = new SqlSegment(select, from, where, order, pagination),
-                Query = Clean($"{select} {from} {where} {order} {pagination}"),
-                Parameters = Parameters
-            };
-
-            return sql;
+            var query = Clean($"{select} {from} {where} {order} {pagination}");
+            var segment = new SqlSegment(select, from, where, order, pagination);
+            
+            return new Sql(query, segment, Parameters);
         }
 
         #endregion
@@ -211,6 +209,10 @@ namespace NC.SqlBuilder
 
                             break;
                         case Operator.Between:
+
+                            //var f = condition.Value.Split(".");
+
+                            //where.Add($"[{condition.Field}] BETWEEN @{@condition.Field}_A AND @{condition.Field}_B");
 
                             throw new NotImplementedException();
 
