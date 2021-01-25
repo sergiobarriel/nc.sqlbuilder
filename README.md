@@ -18,7 +18,7 @@ With ```SqlBuilder``` type you can start the fluent builder and populate with pr
 
 ```csharp
 var builder = Builder.Create()
-    .ToTable(new Table("Users", "dbo"))
+    .ToTable(new Table("Users"))
     .AddFields(new[] { "Id", "Name", "Email", "Age"})
     .AddConditions(new List<Condition>() { new Condition("Age", Operator.GreaterThan, "7") })
     .AddOrder(new Order("Id", Direction.Ascending))
