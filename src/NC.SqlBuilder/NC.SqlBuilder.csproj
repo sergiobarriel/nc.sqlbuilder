@@ -7,12 +7,12 @@
     <PackageProjectUrl>https://github.com/sergiobarriel/sqlbuilder</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sergiobarriel/sqlbuilder</RepositoryUrl>
     <PackageTags>sql, builder, lightweight</PackageTags>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>NC.SqlBuilder</PackageId>
     <Description>NC.SqlBuilder is a lightweight SQL builder</Description>
     <PackageIcon>nc.sqlbuilder.icon.png</PackageIcon>
-    <PackageReleaseNotes>Test refactoring</PackageReleaseNotes>
+    <PackageReleaseNotes>Output object moved to another namespace</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
