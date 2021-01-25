@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using NC.SqlBuilder.Abstractions;
 using NC.SqlBuilder.Models;
+using NC.SqlBuilder.Models.Output;
 
 namespace NC.SqlBuilder
 {
@@ -134,7 +135,7 @@ namespace NC.SqlBuilder
 
         private string BuildSelect()
         {
-            if ((Fields == null || !Fields.Any()) && !AllFields) throw new Exception("Fields can not be null or empty.");
+            if ((Fields == null || !Fields.Any()) && !AllFields) throw new Exception("'Fields' can not be null or empty.");
 
             return AllFields || (Fields == null || !Fields.Any())
                 ? "SELECT *"
@@ -166,8 +167,8 @@ namespace NC.SqlBuilder
 
         private string BuildWhere()
         {
-            if (BlackList.Contains(Conditions.SelectMany(condition => condition.Field))) throw new Exception($"Field contains blacklist word");
-            if (BlackList.Contains(Conditions.SelectMany(condition => condition.Value))) throw new Exception($"Value contains blacklist word");
+            if (BlackList.Contains(Conditions.SelectMany(condition => condition.Field))) throw new Exception($"'Field' contains blacklist word.");
+            if (BlackList.Contains(Conditions.SelectMany(condition => condition.Value))) throw new Exception($"'Value' contains blacklist word.");
 
             var where = new List<string>();
 
@@ -295,7 +296,13 @@ namespace NC.SqlBuilder
 
             return sql;
         }
+        //private static string RandomString(int length)
+        //{
+        //    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
+        //    return new string(Enumerable.Repeat(chars, length)
+        //        .Select(s => s[new Random().Next(s.Length)]).ToArray());
+        //}
 
     }
 }

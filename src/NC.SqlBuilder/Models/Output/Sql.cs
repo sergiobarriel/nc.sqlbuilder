@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NC.SqlBuilder.Models
+namespace NC.SqlBuilder.Models.Output
 {
     public class Sql
     {

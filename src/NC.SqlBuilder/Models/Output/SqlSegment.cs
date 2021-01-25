@@ -1,4 +1,4 @@
-﻿namespace NC.SqlBuilder.Models
+﻿namespace NC.SqlBuilder.Models.Output
 {
     public class SqlSegment
     {
