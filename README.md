@@ -18,7 +18,7 @@ With ```SqlBuilder``` type you can start the fluent builder and populate with pr
 
 ```csharp
 var builder = Builder.Create()
-    .ToTable(new Table("Users", "dbo"))
+    .ToTable(new Table("Users"))
     .AddFields(new[] { "Id", "Name", "Email", "Age"})
     .AddConditions(new List<Condition>() { new Condition("Age", Operator.GreaterThan, "7") })
     .AddOrder(new Order("Id", Direction.Ascending))
@@ -43,6 +43,8 @@ using (var connection = new SqlConnection(connectionString))
     var users = await connection.QueryAsync<User>(builder.Query, builder.Parameters);
 }
 ```
+## Next
+On the next versions I will include table join support and some new SQL operators
 
 ## Contact
 You can contact me via Twitter [@sergiobarriel](https://twitter.com/sergiobarriel)
