@@ -105,15 +105,19 @@ namespace NC.SqlBuilder
         public Sql Build()
         {
             var select = Clean($"{BuildSelect()}");
+            var selectForTotal = Clean($"{BuildSelectForTotal()}");
+
             var from = Clean($" {BuildFrom()}");
             var where = Clean($"{BuildWhere()}");
             var order = Clean($" {BuildOrder()}");
             var pagination = Clean($"{BuildPagination()}");
 
             var query = Clean($"{select} {from} {where} {order} {pagination}");
+            var queryForTotal = Clean($"{selectForTotal} {from} {where}");
+
             var segment = new SqlSegment(select, from, where, order, pagination);
             
-            return new Sql(query, segment, Parameters);
+            return new Sql(query, queryForTotal, segment, Parameters);
         }
 
         #endregion
@@ -141,6 +145,9 @@ namespace NC.SqlBuilder
                 ? "SELECT *"
                 : $"SELECT {string.Join(", ", Fields.Select(field => $"[{field}]"))}";
         }
+
+
+        private string BuildSelectForTotal() => $"SELECT COUNT(*)";
 
         #endregion
 
