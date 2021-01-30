@@ -15,7 +15,7 @@ namespace NC.SqlBuilder.Models
             Size = size;
         }
 
-        public int First { get; }
-        public int Size { get; }
+        public int First { get; set; }
+        public int Size { get; set; }
     }
 }

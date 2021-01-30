@@ -13,7 +13,7 @@ namespace NC.SqlBuilder.Models
             Direction = direction;
         }
 
-        public string Field { get; }
-        public Direction Direction { get; }
+        public string Field { get; set; }
+        public Direction Direction { get; set; }
     }
 }

@@ -25,9 +25,9 @@ namespace NC.SqlBuilder.Models
             Value = $"{a}.{b}";
         }
 
-        public string Field { get; }
-        public string Value { get; }
-        public Operator Operator { get; }
+        public string Field { get; set; }
+        public string Value { get; set; }
+        public Operator Operator { get; set; }
     }
 
 }
