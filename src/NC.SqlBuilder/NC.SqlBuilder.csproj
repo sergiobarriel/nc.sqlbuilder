@@ -7,12 +7,12 @@
     <PackageProjectUrl>https://github.com/sergiobarriel/sqlbuilder</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sergiobarriel/sqlbuilder</RepositoryUrl>
     <PackageTags>sql, builder, lightweight</PackageTags>
-    <Version>1.0.12</Version>
+    <Version>1.0.13</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>NC.SqlBuilder</PackageId>
     <Description>NC.SqlBuilder is a lightweight SQL builder</Description>
     <PackageIcon>nc.sqlbuilder.icon.png</PackageIcon>
-    <PackageReleaseNotes>Added new property that returns SQL query that count affected rows</PackageReleaseNotes>
+    <PackageReleaseNotes>Refactor</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
