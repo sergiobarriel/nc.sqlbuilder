@@ -1,6 +1,6 @@
 ﻿using NC.SqlBuilder.Models.Output;
 
-namespace NC.SqlBuilder.Abstractions
+namespace NC.SqlBuilder.Abstractions.Fluent
 {
     public interface ISqlQueryBuilderWithPagination
     {

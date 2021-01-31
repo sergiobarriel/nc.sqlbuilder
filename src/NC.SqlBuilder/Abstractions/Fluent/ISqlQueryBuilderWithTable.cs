@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NC.SqlBuilder.Abstractions
+namespace NC.SqlBuilder.Abstractions.Fluent
 {
     public interface ISqlQueryBuilderWithTable
     {

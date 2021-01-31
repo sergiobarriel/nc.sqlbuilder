@@ -1,6 +1,6 @@
 ﻿using NC.SqlBuilder.Models;
 
-namespace NC.SqlBuilder.Abstractions
+namespace NC.SqlBuilder.Abstractions.Fluent
 {
     public interface ISqlQueryBuilderWithOrder
     {

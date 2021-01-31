@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using NC.SqlBuilder.Abstractions;
+using NC.SqlBuilder.Extensions;
 using NC.SqlBuilder.Models;
-using NC.SqlBuilder.Models.Output;
 
 namespace NC.SqlBuilder
 {
-    public class Builder : 
-        ISqlQueryBuilder, 
-        ISqlQueryBuilderWithTable, 
-        ISqlQueryBuilderWithSelect, 
-        ISqlQueryBuilderWithWhere, 
-        ISqlQueryBuilderWithOrder, 
-        ISqlQueryBuilderWithPagination
+    public partial class Builder 
     {
         private IList<Table> Tables { get; set; }
         private IEnumerable<string> Fields { get; set; }
@@ -24,103 +17,6 @@ namespace NC.SqlBuilder
         private IList<Order> Orders { get; set; }
         private Pagination Pagination { get; set; }
         private List<string> BlackList { get; set; }
-
-        #region Fluent flow
-
-        public static ISqlQueryBuilder Create() => new Builder();
-
-        public ISqlQueryBuilderWithTable ToTable(string table) => ToTable(new Table(table));
-        
-        public ISqlQueryBuilderWithTable ToTable(Table table)
-        {
-            if (table != null)
-            {
-                Tables.Add(table);
-            }
-
-            return this;
-        }
-        public ISqlQueryBuilderWithTable ToTables(IEnumerable<Table> tables)
-        {
-            if (tables != null && tables.Any())
-            {
-                Tables = tables as IList<Table>;
-            }
-
-            return this;
-        }
-
-        public ISqlQueryBuilderWithSelect AddFields(IEnumerable<string> fields)
-        {
-            if (fields != null)
-            {
-                Fields = fields;
-            }
-            return this;
-        }
-        public ISqlQueryBuilderWithSelect AddAllFields()
-        {
-            AllFields = true;
-            return this;
-        }
-
-        public ISqlQueryBuilderWithWhere AddConditions(IEnumerable<Condition> conditions)
-        {
-            if (conditions != null)
-            {
-                Conditions = conditions;
-            }
-
-            return this;
-        }
-
-        public ISqlQueryBuilderWithOrder AddOrder(Order order)
-        {
-            if (order != null)
-            {
-                Orders.Add(order);
-            }
-
-            return this;
-        }
-        public ISqlQueryBuilderWithOrder AddOrders(IEnumerable<Order> orders)
-        {
-            if (orders != null && orders.Any())
-            {
-                Orders = orders as IList<Order>;
-            }
-
-            return this;
-        }
-        public ISqlQueryBuilderWithPagination AddPagination(Pagination pagination)
-        {
-            if (pagination != null)
-            {
-                Pagination = pagination;
-            }
-
-            return this;
-        }
-
-        public Sql Build()
-        {
-            var select = Clean($"{BuildSelect()}");
-            var selectForTotal = Clean($"{BuildSelectForTotal()}");
-
-            var from = Clean($" {BuildFrom()}");
-            var where = Clean($"{BuildWhere()}");
-            var order = Clean($" {BuildOrder()}");
-            var pagination = Clean($"{BuildPagination()}");
-
-            var query = Clean($"{select} {from} {where} {order} {pagination}");
-            var queryForTotal = Clean($"{selectForTotal} {from} {where}");
-
-            var segment = new SqlSegment(select, from, where, order, pagination);
-            
-            return new Sql(query, queryForTotal, segment, Parameters);
-        }
-
-        #endregion
 
         private Builder()
         {
@@ -275,8 +171,6 @@ namespace NC.SqlBuilder
 
         private string BuildOrder()
         {
-            //ValidateIfOrderingFieldsExistsOnFields();
-
             var orderBy = string.Join(", ", Orders.Select(order => $"[{order.Field}] {GetDirectionString(order.Direction)}"));
 
             return string.IsNullOrEmpty(orderBy)
@@ -285,13 +179,6 @@ namespace NC.SqlBuilder
 
         }
 
-        //private void ValidateIfOrderingFieldsExistsOnFields()
-        //{
-        //    foreach (var order in Orders)
-        //    {
-        //        if (!Fields.Contains(order.Field)) throw new Exception($"Field {order.Field} not included on select.");
-        //    }
-        //}
         #endregion
 
         #region PAGINATION segment
@@ -342,14 +229,7 @@ namespace NC.SqlBuilder
         //        .Select(s => s[new Random().Next(s.Length)]).ToArray());
         //}
 
-        #region EXTENSIONS
-
-        #endregion
-
     }
 
-    public static class BuilderExtensions
-    {
-        public static bool IsGeoSpatial(this IEnumerable<Condition> conditions) => conditions.Any(condition => condition.Operator == Operator.Near);
-    }
+  
 }

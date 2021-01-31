@@ -1,6 +1,6 @@
 ﻿using NC.SqlBuilder.Abstractions.Operations;
 
-namespace NC.SqlBuilder.Models
+namespace NC.SqlBuilder.Models.Operations
 {
     public class SimpleOperation : ISimpleOperation
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using NC.SqlBuilder.Models;
+using NC.SqlBuilder.Models.Operations;
 using Xunit;
 
 namespace NC.SqlBuilder.Tests
