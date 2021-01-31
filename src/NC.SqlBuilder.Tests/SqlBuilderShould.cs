@@ -12,7 +12,10 @@ namespace NC.SqlBuilder.Tests
             var builder = Builder.Create()
                 .ToTable(new Table("MyTable"))
                 .AddFields(new[] { "One", "Two" })
-                .AddConditions(new List<Condition>() { new Condition("One", Operator.Equals, "one") })
+                .AddConditions(new List<Condition>()
+                {
+                    new Condition(new SimpleOperation("One", Operator.Equals, "one")),
+                })
                 .AddOrder(new Order("One", Direction.Ascending))
                 .AddPagination(new Pagination(0, 10))
                 .Build();
@@ -28,7 +31,10 @@ namespace NC.SqlBuilder.Tests
             var builder = Builder.Create()
                 .ToTable(new Table("MyTable"))
                 .AddFields(new[] { "One", "Two" })
-                .AddConditions(new List<Condition>() { new Condition("One", Operator.Equals, "one"), new Condition("Two", Operator.LessThan, "10") })
+                .AddConditions(new List<Condition>()
+                {
+                    new Condition(new SimpleOperation("One", Operator.Equals, "one")), new Condition(new SimpleOperation("Two", Operator.LessThan, "10")),
+                })
                 .AddOrder(new Order("One", Direction.Ascending))
                 .AddPagination(new Pagination(0, 10))
                 .Build();
@@ -44,6 +50,7 @@ namespace NC.SqlBuilder.Tests
             Assert.Contains(builder.Parameters, item => item.Key == "Two" && (string)item.Value == "10");
 
         }
+
 
     }
 }

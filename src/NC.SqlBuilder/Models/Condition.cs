@@ -1,33 +1,66 @@
-﻿using System;
+﻿using NC.SqlBuilder.Abstractions.Operations;
 
 namespace NC.SqlBuilder.Models
 {
-    public class Condition
+    public class Condition : IOperation
     {
-        public Condition() { }
+        public Condition () { }
+
         public Condition(string field, Operator @operator, string value)
         {
-            if (@operator == Operator.Between)
-                throw new Exception($"'Between' operator require two values.");
-
             Field = field;
             Operator = @operator;
             Value = value;
         }
-
-        public Condition(string field, Operator @operator, string a, string b)
+        public Condition(string field, Operator @operator, string up, string down)
         {
-            if(@operator == Operator.Between && (string.IsNullOrEmpty(a) || string.IsNullOrEmpty(b))) 
-                throw new Exception($"'Between' operator require two values.");
-            
             Field = field;
             Operator = @operator;
-            Value = $"{a}.{b}";
+            Up = up;
+            Down = down;
+        }
+        public Condition(string field, Operator @operator, double latitude, double longitude, int radio)
+        {
+            Field = field;
+            Operator = @operator;
+            Latitude = latitude;
+            Longitude = longitude;
+            Radio = radio;
+        }
+
+        public Condition(ICoordinatesOperation @operation)
+        {
+            Field = operation.Field;
+            Operator = operation.Operator;
+            Latitude = operation.Latitude;
+            Longitude = operation.Longitude;
+            Radio = operation.Radio;
+        }
+        public Condition(IBetweenOperation @operation)
+        {
+            Field = operation.Field;
+            Operator = operation.Operator;
+            Up = operation.Up;
+            Down = operation.Down;
+        }
+        public Condition(ISimpleOperation @operation)
+        {
+            Field = operation.Field;
+            Operator = operation.Operator;
+            Value = operation.Value;
         }
 
         public string Field { get; set; }
-        public string Value { get; set; }
         public Operator Operator { get; set; }
+
+        public string Value { get; set; }
+
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
+        public int Radio { get; set; }
+
+        public string Down { get; set; }
+        public string Up { get; set; }
     }
 
 }

@@ -141,9 +141,23 @@ namespace NC.SqlBuilder
         {
             if ((Fields == null || !Fields.Any()) && !AllFields) throw new Exception("'Fields' can not be null or empty.");
 
-            return AllFields || (Fields == null || !Fields.Any())
+            var select = AllFields || (Fields == null || !Fields.Any())
                 ? "SELECT *"
                 : $"SELECT {string.Join(", ", Fields.Select(field => $"[{field}]"))}";
+
+            if (Conditions.IsGeoSpatial())
+            {
+                var aaaa = new List<string>();
+
+                foreach (var condition in Conditions.Where(con => con.Operator == Operator.Near))
+                {
+                    aaaa.Add($"[{condition.Field}].STDistance('POINT({condition.Latitude} {condition.Longitude})') AS 'Distance'");
+                }
+
+                select = $"{select}, {string.Join(", ", aaaa)}";
+            }
+
+            return select;
         }
 
 
@@ -189,48 +203,64 @@ namespace NC.SqlBuilder
 
                             where.Add($"[{condition.Field}] = @{condition.Field}");
 
+                            Parameters.Add(condition.Field, condition.Value);
+
                             break;
   
                         case Operator.Like:
 
                             where.Add($"[{condition.Field}] LIKE '%@{condition.Field}%'");
 
+                            Parameters.Add(condition.Field, condition.Value);
+
                             break;
                         case Operator.LessThan:
 
                             where.Add($"[{condition.Field}] < @{condition.Field}");
+
+                            Parameters.Add(condition.Field, condition.Value);
 
                             break;
                         case Operator.LessThanOrEqual:
 
                             where.Add($"[{condition.Field}] <= @{condition.Field}");
 
+                            Parameters.Add(condition.Field, condition.Value);
+
                             break;
                         case Operator.GreaterThan:
 
                             where.Add($"[{condition.Field}] > @{condition.Field}");
 
+                            Parameters.Add(condition.Field, condition.Value);
+
                             break;
                         case Operator.GreaterThanOrEqual:
 
                             where.Add($"[{condition.Field}] >= @{condition.Field}");
+                            
+                            Parameters.Add(condition.Field, condition.Value);
 
                             break;
                         case Operator.Between:
 
-                            //var f = condition.Value.Split(".");
+                            where.Add($"[{condition.Field}] BETWEEN @{@condition.Field}_DOWN AND @{condition.Field}_UP");
 
-                            //where.Add($"[{condition.Field}] BETWEEN @{@condition.Field}_A AND @{condition.Field}_B");
-
-                            throw new NotImplementedException();
+                            Parameters.Add($"{condition.Field}_DOWN", condition.Down);
+                            Parameters.Add($"{condition.Field}_UP", condition.Up);
 
                             break;
 
+                        case Operator.Near:
+
+                            where.Add($"[{condition.Field}].STDistance('POINT({condition.Latitude} {condition.Longitude})') IS NOT NULL");
+                            where.Add($"[{condition.Field}].STDistance('POINT({condition.Latitude} {condition.Longitude})') < {condition.Radio}");
+
+                            break;
+                        
                         default:
                             throw new ArgumentOutOfRangeException(nameof(condition.Operator), condition.Operator, null);
                     }
-
-                    Parameters.Add(condition.Field, condition.Value);
                 }
             }
 
@@ -245,7 +275,7 @@ namespace NC.SqlBuilder
 
         private string BuildOrder()
         {
-            ValidateIfOrderingFieldsExistsOnFields();
+            //ValidateIfOrderingFieldsExistsOnFields();
 
             var orderBy = string.Join(", ", Orders.Select(order => $"[{order.Field}] {GetDirectionString(order.Direction)}"));
 
@@ -255,13 +285,13 @@ namespace NC.SqlBuilder
 
         }
 
-        private void ValidateIfOrderingFieldsExistsOnFields()
-        {
-            foreach (var order in Orders)
-            {
-                if (!Fields.Contains(order.Field)) throw new Exception($"Field {order.Field} not included on select.");
-            }
-        }
+        //private void ValidateIfOrderingFieldsExistsOnFields()
+        //{
+        //    foreach (var order in Orders)
+        //    {
+        //        if (!Fields.Contains(order.Field)) throw new Exception($"Field {order.Field} not included on select.");
+        //    }
+        //}
         #endregion
 
         #region PAGINATION segment
@@ -303,6 +333,7 @@ namespace NC.SqlBuilder
 
             return sql;
         }
+
         //private static string RandomString(int length)
         //{
         //    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -311,5 +342,14 @@ namespace NC.SqlBuilder
         //        .Select(s => s[new Random().Next(s.Length)]).ToArray());
         //}
 
+        #region EXTENSIONS
+
+        #endregion
+
+    }
+
+    public static class BuilderExtensions
+    {
+        public static bool IsGeoSpatial(this IEnumerable<Condition> conditions) => conditions.Any(condition => condition.Operator == Operator.Near);
     }
 }

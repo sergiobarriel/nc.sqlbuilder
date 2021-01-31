@@ -23,6 +23,9 @@ namespace NC.SqlBuilder.Models
         GreaterThanOrEqual,
 
         [Description("Between")]
-        Between
+        Between,
+
+        [Description("Near (custom operator)")]
+        Near
     }
 }
