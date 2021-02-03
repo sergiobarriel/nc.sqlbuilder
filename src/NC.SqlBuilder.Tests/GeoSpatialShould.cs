@@ -23,7 +23,7 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(new Pagination(0, 10))
                 .Build();
 
-            var query = "SELECT [One], [Point].STDistance('POINT(40,415839121335964 -3,6839833344870967)') AS 'Distance' FROM [dbo].[MyTable] WHERE [One] = @One AND [Point].STDistance('POINT(40,415839121335964 -3,6839833344870967)') IS NOT NULL AND [Point].STDistance('POINT(40,415839121335964 -3,6839833344870967)') < 50 ORDER BY [One] ASC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY";
+            var query = "SELECT [One], [Point].STDistance('POINT(40.415839121335964 -3.6839833344870967)') AS 'Distance' FROM [dbo].[MyTable] WHERE [One] = @One AND [Point].STDistance('POINT(40.415839121335964 -3.6839833344870967)') IS NOT NULL AND [Point].STDistance('POINT(40.415839121335964 -3.6839833344870967)') < 50 ORDER BY [One] ASC OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY";
 
             Assert.Equal(query, builder.Query);
 

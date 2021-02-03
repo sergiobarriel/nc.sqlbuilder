@@ -1,9 +1,10 @@
-﻿using System;
+﻿using NC.SqlBuilder.Extensions;
+using NC.SqlBuilder.Models;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using NC.SqlBuilder.Extensions;
-using NC.SqlBuilder.Models;
 
 namespace NC.SqlBuilder
 {
@@ -17,6 +18,7 @@ namespace NC.SqlBuilder
         private IList<Order> Orders { get; set; }
         private Pagination Pagination { get; set; }
         private List<string> BlackList { get; set; }
+        private NumberFormatInfo Format { get; }
 
         private Builder()
         {
@@ -28,6 +30,8 @@ namespace NC.SqlBuilder
             AllFields = false;
 
             BlackList = new List<string>() { "DELETE", "TRUNCATE", "AND", "SELECT", "UPDATE", ";" };
+
+            Format = new NumberFormatInfo { NumberDecimalSeparator = "." };
         }
 
 
@@ -43,14 +47,14 @@ namespace NC.SqlBuilder
 
             if (Conditions.IsGeoSpatial())
             {
-                var aaaa = new List<string>();
+                var geoSpatialSelect = new List<string>();
 
                 foreach (var condition in Conditions.Where(con => con.Operator == Operator.Near))
                 {
-                    aaaa.Add($"[{condition.Field}].STDistance('POINT({condition.Latitude} {condition.Longitude})') AS 'Distance'");
+                    geoSpatialSelect.Add($"[{condition.Field}].STDistance('POINT({condition.Latitude.ToString(Format)} {condition.Longitude.ToString(Format)})') AS 'Distance'");
                 }
 
-                select = $"{select}, {string.Join(", ", aaaa)}";
+                select = $"{select}, {string.Join(", ", geoSpatialSelect)}";
             }
 
             return select;
@@ -149,8 +153,8 @@ namespace NC.SqlBuilder
 
                         case Operator.Near:
 
-                            where.Add($"[{condition.Field}].STDistance('POINT({condition.Latitude} {condition.Longitude})') IS NOT NULL");
-                            where.Add($"[{condition.Field}].STDistance('POINT({condition.Latitude} {condition.Longitude})') < {condition.Radio}");
+                            where.Add($"[{condition.Field}].STDistance('POINT({condition.Latitude.ToString(Format)} {condition.Longitude.ToString(Format)})') IS NOT NULL");
+                            where.Add($"[{condition.Field}].STDistance('POINT({condition.Latitude.ToString(Format)} {condition.Longitude.ToString(Format)})') < {condition.Radio}");
 
                             break;
                         

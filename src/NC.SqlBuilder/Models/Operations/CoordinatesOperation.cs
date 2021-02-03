@@ -1,4 +1,6 @@
-﻿using NC.SqlBuilder.Abstractions.Operations;
+﻿using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
+using NC.SqlBuilder.Abstractions.Operations;
 
 namespace NC.SqlBuilder.Models.Operations
 {
@@ -16,6 +18,7 @@ namespace NC.SqlBuilder.Models.Operations
 
         public string Field { get; set; }
         public Operator Operator { get; set; }
+
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public int Radio { get; set; }
