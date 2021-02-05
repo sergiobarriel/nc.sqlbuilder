@@ -22,11 +22,11 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] = @Two";
-            var where = "WHERE [One] = @One AND [Two] = @Two";
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] = @Two";
+            var expectedWhere = "WHERE [One] = @One AND [Two] = @Two";
 
-            Assert.Equal(builder.Segment.Where, where);
-            Assert.Equal(builder.Query, query);
+            Assert.Equal(expectedWhere, builder.Segment.Where);
+            Assert.Equal(expectedQuery, builder.Query);
 
             Assert.Contains(builder.Parameters, item => item.Key == "One");
             Assert.Contains(builder.Parameters, item => item.Key == "Two");
@@ -46,11 +46,11 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two] FROM [dbo].[MyTable]";
-            var where = "";
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable]";
+            var expectedWhere = string.Empty;
 
-            Assert.Equal(builder.Segment.Where, where);
-            Assert.Equal(builder.Query, query);
+            Assert.Equal(expectedWhere, builder.Segment.Where);
+            Assert.Equal(expectedQuery, builder.Query);
         }
 
         [Fact]
@@ -73,11 +73,11 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%' AND [Seven] BETWEEN @Seven_DOWN AND @Seven_UP";
-            var where = "WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%' AND [Seven] BETWEEN @Seven_DOWN AND @Seven_UP";
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%' AND [Seven] BETWEEN @Seven_DOWN AND @Seven_UP";
+            var expectedWhere = "WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%' AND [Seven] BETWEEN @Seven_DOWN AND @Seven_UP";
 
-            Assert.Equal(builder.Segment.Where, where);
-            Assert.Equal(builder.Query, query);
+            Assert.Equal(expectedWhere, builder.Segment.Where);
+            Assert.Equal(expectedQuery, builder.Query);
 
             Assert.Contains(builder.Parameters, item => item.Key == "One");
             Assert.Contains(builder.Parameters, item => item.Key == "Two");

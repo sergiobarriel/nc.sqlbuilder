@@ -17,11 +17,11 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(new Pagination(0, 10))
                 .Build();
 
-            var query = "SELECT [One], [Two] FROM [dbo].[MyTable] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY";
-            var pagination = "OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY";
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable] OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY";
+            var expectedPagination = "OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY";
 
-            Assert.Equal(sql.Query, query);
-            Assert.Equal(sql.Segment.Pagination, pagination);
+            Assert.Equal(expectedQuery, sql.Query);
+            Assert.Equal(expectedPagination, sql.Segment.Pagination);
         }
 
         [Fact]

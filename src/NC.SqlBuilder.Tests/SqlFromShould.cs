@@ -28,11 +28,11 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two] FROM [dbo].[MyTable]";
-            var from = "FROM [dbo].[MyTable]";
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable]";
+            var expectedFrom = "FROM [dbo].[MyTable]";
 
-            Assert.Equal(builder.Segment.From, from);
-            Assert.Equal(builder.Query, query);
+            Assert.Equal(expectedFrom, builder.Segment.From);
+            Assert.Equal(expectedQuery, builder.Query);
         }
 
         [Fact]
@@ -46,11 +46,11 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(null)
                 .Build();
 
-            var query = "SELECT [One], [Two] FROM [CustomSchema].[MyTable]";
-            var from = "FROM [CustomSchema].[MyTable]";
+            var expectedQuery = "SELECT [One], [Two] FROM [CustomSchema].[MyTable]";
+            var expectedFrom = "FROM [CustomSchema].[MyTable]";
 
-            Assert.Equal(builder.Segment.From, from);
-            Assert.Equal(builder.Query, query);
+            Assert.Equal(expectedFrom, builder.Segment.From);
+            Assert.Equal(expectedQuery, builder.Query);
         }
 
     }
