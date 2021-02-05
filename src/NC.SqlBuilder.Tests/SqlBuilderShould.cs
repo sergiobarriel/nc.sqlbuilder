@@ -54,5 +54,22 @@ namespace NC.SqlBuilder.Tests
         }
 
 
+        [Fact]
+        public void query_with_many_without_fluent_methods()
+        {
+            var builder = Builder.Create()
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] {"One", "Two"})
+                .WithoutConditions()
+                .WithoutOrder()
+                .WithoutPagination()
+                .Build();
+
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable]";
+
+            Assert.Equal(expectedQuery, builder.Query);
+        }
+
+
     }
 }

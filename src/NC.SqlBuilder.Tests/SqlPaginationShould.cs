@@ -24,6 +24,25 @@ namespace NC.SqlBuilder.Tests
             Assert.Equal(expectedPagination, sql.Segment.Pagination);
         }
 
+
+        [Fact]
+        public void query_without_pagination()
+        {
+            var sql = Builder.Create()
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] { "One", "Two" })
+                .AddConditions(null)
+                .AddOrder(null)
+                .WithoutPagination()
+                .Build();
+
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable]";
+            var expectedPagination = string.Empty;
+
+            Assert.Equal(expectedQuery, sql.Query);
+            Assert.Equal(expectedPagination, sql.Segment.Pagination);
+        }
+
         [Fact]
         public void query_with_negative_first_value()
         {

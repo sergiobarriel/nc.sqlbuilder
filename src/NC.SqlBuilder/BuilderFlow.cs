@@ -62,6 +62,9 @@ namespace NC.SqlBuilder
             return this;
         }
 
+        public ISqlQueryBuilderWithWhere WithoutConditions() => this;
+        
+
         public ISqlQueryBuilderWithOrder AddOrder(Order order)
         {
             if (order != null)
@@ -80,6 +83,9 @@ namespace NC.SqlBuilder
 
             return this;
         }
+
+        public ISqlQueryBuilderWithOrder WithoutOrder() => this;
+
         public ISqlQueryBuilderWithPagination AddPagination(Pagination pagination)
         {
             if (pagination != null)
@@ -89,6 +95,8 @@ namespace NC.SqlBuilder
 
             return this;
         }
+
+        public ISqlQueryBuilderWithPagination WithoutPagination() => this;
 
         public Sql Build()
         {

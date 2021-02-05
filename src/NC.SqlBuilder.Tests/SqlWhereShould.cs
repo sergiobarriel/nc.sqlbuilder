@@ -36,12 +36,30 @@ namespace NC.SqlBuilder.Tests
         }
 
         [Fact]
-        public void query_without_conditions()
+        public void query_without_conditions_a()
         {
             var builder = Builder.Create()
                 .ToTable(new Table("MyTable"))
                 .AddFields(new[] { "One", "Two" })
                 .AddConditions(null)
+                .AddOrder(null)
+                .AddPagination(null)
+                .Build();
+
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable]";
+            var expectedWhere = string.Empty;
+
+            Assert.Equal(expectedWhere, builder.Segment.Where);
+            Assert.Equal(expectedQuery, builder.Query);
+        }
+
+        [Fact]
+        public void query_without_conditions_b()
+        {
+            var builder = Builder.Create()
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] { "One", "Two" })
+                .WithoutConditions()
                 .AddOrder(null)
                 .AddPagination(null)
                 .Build();

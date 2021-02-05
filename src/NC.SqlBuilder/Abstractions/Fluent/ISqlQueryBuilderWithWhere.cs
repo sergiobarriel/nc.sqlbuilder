@@ -7,5 +7,6 @@ namespace NC.SqlBuilder.Abstractions.Fluent
     {
         ISqlQueryBuilderWithOrder AddOrder(Order order);
         ISqlQueryBuilderWithOrder AddOrders(IEnumerable<Order> orders);
+        ISqlQueryBuilderWithOrder WithoutOrder();
     }
 }

@@ -41,5 +41,23 @@ namespace NC.SqlBuilder.Tests
             Assert.Equal(expectedQuery, builder.Query);
         }
 
+        [Fact]
+        public void query_without_order()
+        {
+            var builder = Builder.Create()
+                .ToTable(new Table("MyTable"))
+                .AddFields(new[] { "One", "Two" })
+                .AddConditions(null)
+                .WithoutOrder()
+                .AddPagination(null)
+                .Build();
+
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable]";
+            var expectedOrder = string.Empty;
+
+            Assert.Equal(expectedOrder, builder.Segment.Order);
+            Assert.Equal(expectedQuery, builder.Query);
+        }
+
     }
 }
