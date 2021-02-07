@@ -20,7 +20,7 @@ With ```SqlBuilder``` type you can start the fluent builder and populate with pr
 var builder = Builder.Create()
     .ToTable(new Table("Users"))
     .AddFields(new[] { "Id", "Name", "Email", "Age"})
-    .AddConditions(new List<Condition>() { new Condition("Age", Operator.GreaterThan, "7") })
+    .AddConditions(new List<Condition>() { new SimpleOperation("Age", Operator.GreaterThan, "7") })
     .AddOrder(new Order("Id", Direction.Ascending))
     .AddPagination(new Pagination(0, 10))
     .Build();
