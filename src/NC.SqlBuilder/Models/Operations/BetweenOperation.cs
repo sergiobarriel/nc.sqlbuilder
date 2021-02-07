@@ -5,17 +5,17 @@ namespace NC.SqlBuilder.Models.Operations
     public class BetweenOperation : IBetweenOperation
     {
         public BetweenOperation() { }
-        public BetweenOperation(string field, Operator @operator, string up, string down)
+        public BetweenOperation(string field, Operator @operator, string left, string right)
         {
             Field = field;
             Operator = @operator;
-            Up = up;
-            Down = down;
+            Left = left;
+            Right = right;
         }
 
         public string Field { get; set; }
         public Operator Operator { get; set; }
-        public string Up { get; set; }
-        public string Down { get; set; }
+        public string Left { get; set; }
+        public string Right { get; set; }
     }
 }

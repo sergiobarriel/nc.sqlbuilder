@@ -12,12 +12,12 @@ namespace NC.SqlBuilder.Models
             Operator = @operator;
             Value = value;
         }
-        public Condition(string field, Operator @operator, string up, string down)
+        public Condition(string field, Operator @operator, string left, string right)
         {
             Field = field;
             Operator = @operator;
-            Up = up;
-            Down = down;
+            Right = right;
+            Left = left;
         }
         public Condition(string field, Operator @operator, double latitude, double longitude, int radio)
         {
@@ -40,8 +40,8 @@ namespace NC.SqlBuilder.Models
         {
             Field = operation.Field;
             Operator = operation.Operator;
-            Up = operation.Up;
-            Down = operation.Down;
+            Right = operation.Right;
+            Left = operation.Left;
         }
         public Condition(ISimpleOperation @operation)
         {
@@ -59,8 +59,8 @@ namespace NC.SqlBuilder.Models
         public double Latitude { get; set; }
         public int Radio { get; set; }
 
-        public string Down { get; set; }
-        public string Up { get; set; }
+        public string Left { get; set; }
+        public string Right { get; set; }
     }
 
 }

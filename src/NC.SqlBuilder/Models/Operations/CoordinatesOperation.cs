@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
-using NC.SqlBuilder.Abstractions.Operations;
+﻿using NC.SqlBuilder.Abstractions.Operations;
 
 namespace NC.SqlBuilder.Models.Operations
 {

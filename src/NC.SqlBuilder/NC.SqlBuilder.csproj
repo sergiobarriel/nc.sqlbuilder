@@ -1,18 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Sergio Barriel</Authors>
     <Company />
     <PackageProjectUrl>https://github.com/sergiobarriel/sqlbuilder</PackageProjectUrl>
     <RepositoryUrl>https://github.com/sergiobarriel/sqlbuilder</RepositoryUrl>
     <PackageTags>sql, builder, lightweight</PackageTags>
-    <Version>1.0.15</Version>
+    <Version>1.0.16</Version>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <PackageId>NC.SqlBuilder</PackageId>
     <Description>NC.SqlBuilder is a lightweight SQL builder</Description>
     <PackageIcon>nc.sqlbuilder.icon.png</PackageIcon>
-    <PackageReleaseNotes>Added "without" methods</PackageReleaseNotes>
+    <PackageReleaseNotes>Migration to netstandard</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

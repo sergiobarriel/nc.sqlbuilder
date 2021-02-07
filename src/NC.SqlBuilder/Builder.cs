@@ -144,10 +144,10 @@ namespace NC.SqlBuilder
                             break;
                         case Operator.Between:
 
-                            where.Add($"[{condition.Field}] BETWEEN @{@condition.Field}_DOWN AND @{condition.Field}_UP");
+                            where.Add($"[{condition.Field}] BETWEEN @{@condition.Field}_LEFT AND @{condition.Field}_RIGHT");
 
-                            Parameters.Add($"{condition.Field}_DOWN", condition.Down);
-                            Parameters.Add($"{condition.Field}_UP", condition.Up);
+                            Parameters.Add($"{condition.Field}_LEFT", condition.Left);
+                            Parameters.Add($"{condition.Field}_RIGHT", condition.Right);
 
                             break;
 
@@ -211,27 +211,16 @@ namespace NC.SqlBuilder
 
         private string Clean(string sql)
         {
-            static string RemoveBlanks(string sql)
-            {
-                var regex = new Regex("[ ]{2,}", RegexOptions.None);
-                return regex.Replace(sql, " ");
-            }
-
-            static string Trim(string sql) => sql.Trim();
-
             sql = RemoveBlanks(sql);
-            sql = Trim(sql);
 
-            return sql;
+            return sql.Trim();
         }
 
-        //private static string RandomString(int length)
-        //{
-        //    const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-        //    return new string(Enumerable.Repeat(chars, length)
-        //        .Select(s => s[new Random().Next(s.Length)]).ToArray());
-        //}
+        private string RemoveBlanks(string sql)
+        {
+            var regex = new Regex("[ ]{2,}", RegexOptions.None);
+            return regex.Replace(sql, " ");
+        }
 
     }
 

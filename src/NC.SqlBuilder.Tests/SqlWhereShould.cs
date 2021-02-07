@@ -91,8 +91,8 @@ namespace NC.SqlBuilder.Tests
                 .AddPagination(null)
                 .Build();
 
-            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%' AND [Seven] BETWEEN @Seven_DOWN AND @Seven_UP";
-            var expectedWhere = "WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%' AND [Seven] BETWEEN @Seven_DOWN AND @Seven_UP";
+            var expectedQuery = "SELECT [One], [Two] FROM [dbo].[MyTable] WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%' AND [Seven] BETWEEN @Seven_LEFT AND @Seven_RIGHT";
+            var expectedWhere = "WHERE [One] = @One AND [Two] > @Two AND [Three] >= @Three AND [Four] < @Four AND [Five] <= @Five AND [Six] LIKE '%@Six%' AND [Seven] BETWEEN @Seven_LEFT AND @Seven_RIGHT";
 
             Assert.Equal(expectedWhere, builder.Segment.Where);
             Assert.Equal(expectedQuery, builder.Query);
@@ -103,8 +103,8 @@ namespace NC.SqlBuilder.Tests
             Assert.Contains(builder.Parameters, item => item.Key == "Four");
             Assert.Contains(builder.Parameters, item => item.Key == "Five");
             Assert.Contains(builder.Parameters, item => item.Key == "Six");
-            Assert.Contains(builder.Parameters, item => item.Key == "Seven_DOWN");
-            Assert.Contains(builder.Parameters, item => item.Key == "Seven_UP");
+            Assert.Contains(builder.Parameters, item => item.Key == "Seven_LEFT");
+            Assert.Contains(builder.Parameters, item => item.Key == "Seven_RIGHT");
 
             Assert.Contains(builder.Parameters, item => item.Key == "One" && (string)item.Value == "value 1");
             Assert.Contains(builder.Parameters, item => item.Key == "Two" && (string)item.Value == "value 2");
@@ -112,8 +112,8 @@ namespace NC.SqlBuilder.Tests
             Assert.Contains(builder.Parameters, item => item.Key == "Four" && (string)item.Value == "value 4");
             Assert.Contains(builder.Parameters, item => item.Key == "Five" && (string)item.Value == "value 5");
             Assert.Contains(builder.Parameters, item => item.Key == "Six" && (string)item.Value == "value 6");
-            Assert.Contains(builder.Parameters, item => item.Key == "Seven_DOWN" && (string)item.Value == "value 7b");
-            Assert.Contains(builder.Parameters, item => item.Key == "Seven_UP" && (string)item.Value == "value 7a");
+            Assert.Contains(builder.Parameters, item => item.Key == "Seven_LEFT" && (string)item.Value == "value 7a");
+            Assert.Contains(builder.Parameters, item => item.Key == "Seven_RIGHT" && (string)item.Value == "value 7b");
         }
     }
 }

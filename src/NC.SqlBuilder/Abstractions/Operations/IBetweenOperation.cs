@@ -2,7 +2,7 @@
 {
     public interface IBetweenOperation : IOperation
     {
-        string Down { get; set; }
-        string Up { get; set; }
+        string Left { get; set; }
+        string Right { get; set; }
     }
 }
